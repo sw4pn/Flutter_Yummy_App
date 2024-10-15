@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import '../models/restaurant.dart';
 
-class RestaurantLandscapeCard extends StatelessWidget {
+class RestaurantLandscapeCard extends StatefulWidget {
   final Restaurant restaurant;
 
   const RestaurantLandscapeCard({super.key, required this.restaurant});
+
+  @override
+  State<RestaurantLandscapeCard> createState() =>
+      _RestaurantLandscapeCardState();
+}
+
+class _RestaurantLandscapeCardState extends State<RestaurantLandscapeCard> {
+  bool _isFavorited = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,26 +29,46 @@ class RestaurantLandscapeCard extends StatelessWidget {
               top: Radius.circular(8.0),
             ),
             child: AspectRatio(
-              aspectRatio: 2,
-              child: Image.asset(
-                restaurant.imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
+                aspectRatio: 2,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset(
+                      widget.restaurant.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      top: 4.0,
+                      right: 4.0,
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isFavorited = !_isFavorited;
+                          });
+                        },
+                        icon: Icon(_isFavorited
+                            ? Icons.favorite
+                            : Icons.favorite_border),
+                        iconSize: 30.0,
+                        color: Colors.red[400],
+                      ),
+                    )
+                  ],
+                )),
           ),
           ListTile(
             title: Text(
-              restaurant.name,
+              widget.restaurant.name,
               style: textTheme.titleSmall,
             ),
             subtitle: Text(
-              restaurant.attributes,
+              widget.restaurant.attributes,
               maxLines: 1,
               style: textTheme.bodySmall,
             ),
             onTap: () {
               // ignore: avoid_print
-              print('Tap on ${restaurant.name}');
+              print('Tap on ${widget.restaurant.name}');
             },
           )
         ],
