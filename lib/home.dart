@@ -9,6 +9,7 @@ import 'components/post_card.dart';
 import 'models/post.dart';
 import 'components/restaurant_landscape_card.dart';
 import 'models/restaurant.dart';
+import 'screens/explore_page.dart';
 
 class Home extends StatefulWidget {
   const Home(
@@ -49,24 +50,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 300),
-          child: CategoryCard(category: categories[0]),
+      ExplorePage(),
+      const Center(
+        child: Text(
+          'Order Page',
+          style: TextStyle(fontSize: 32.0),
         ),
       ),
-      Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: PostCard(post: posts[0]),
+      const Center(
+        child: Text(
+          'Account Page',
+          style: TextStyle(fontSize: 32.0),
         ),
       ),
-      Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
-          child: RestaurantLandscapeCard(restaurant: restaurants[0]),
-        ),
-      )
     ];
 
     return Scaffold(
